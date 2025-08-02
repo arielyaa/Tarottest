@@ -1,13 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Moonny塔羅占卜</title>
+  <title>Moonny塔羅抽牌</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background-color: #ffe4e1; }
-    button { font-size: 1.2em; padding: 10px 20px; margin-top: 20px; }
-    #result { margin-top: 30px; font-size: 1.3em; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f0e6f6;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    #result, #three-result {
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
@@ -15,63 +28,60 @@
   <button onclick="drawCard()">抽一張！</button>
   <button onclick="drawThreeCards()">抽三張！</button>
 
+  <div id="result"></div>
+  <div id="three-result"></div>
+
   <script>
     const cards = [
-  { name: "愚者", meaning: "新的開始、自由、冒險。你的運勢充滿新機會，療癒過去的恐懼，勇敢邁出第一步。" },
-  { name: "魔術師", meaning: "創造力、掌控力、開始行動。運勢強勁，適合展現才能，療癒心靈阻礙，掌握命運。" },
-  { name: "女祭司", meaning: "直覺、秘密、內在智慧。運勢提醒你傾聽內心聲音，療癒潛意識的迷霧，找到真實自我。" },
-  { name: "皇后", meaning: "豐饒、愛、照顧他人。運勢佳，適合滋養關係與自我，療癒心靈創傷，帶來溫暖與豐盛。" },
-  { name: "皇帝", meaning: "權威、穩定、結構。運勢穩健，適合建立基礎，療癒混亂與不安，帶來安全感與掌控力。" },
-  { name: "教皇", meaning: "傳統、精神指引、教育。運勢正向，尋求智慧與支持，療癒靈性困惑，獲得心靈啟發。" },
-  { name: "戀人", meaning: "關係、選擇、愛與價值觀。運勢聚焦人際，療癒心結與猶豫，帶來真愛與和諧。" },
-  { name: "戰車", meaning: "意志力、勝利、方向明確。運勢強勢，克服阻礙，療癒自我懷疑，勇往直前，達成目標。" },
-  { name: "力量", meaning: "勇氣、內在力量、堅定。運勢支持自信，療癒內心恐懼，展現無畏與堅強精神。" },
-  { name: "隱士", meaning: "尋找真理、孤獨、內省。運勢適合反思與沉澱，療癒心靈疲憊，找到內在平靜與智慧。" },
-  { name: "命運之輪", meaning: "轉變、機運、循環。運勢多變，療癒過去的傷痛，接受生命週期，迎接新契機。" },
-  { name: "正義", meaning: "公平、因果、真相。運勢強調平衡，療癒不公與糾結，促進誠實與正義的力量。" },
-  { name: "倒吊人", meaning: "改變觀點、犧牲、等待。運勢提醒耐心與轉念，療癒固執與焦慮，帶來新視角與成長。" },
-  { name: "死神", meaning: "結束與重生、蛻變。運勢象徵轉化，療癒過去的結束，迎接蛻變與新生命。" },
-  { name: "節制", meaning: "平衡、調和、耐心。運勢適合整合與療癒，促進身心靈和諧與穩定。" },
-  { name: "惡魔", meaning: "束縛、誘惑、成癮。運勢提醒自我覺察，療癒執著與限制，重獲自由與解脫。" },
-  { name: "高塔", meaning: "突變、震撼、重建。運勢充滿挑戰，療癒崩解的痛苦，促使重生與全新開始。" },
-  { name: "星星", meaning: "希望、療癒、靈感。運勢帶來光明與鼓舞，療癒心靈創傷，激發無限可能。" },
-  { name: "月亮", meaning: "迷惘、潛意識、幻想。運勢提醒正視恐懼，療癒內心陰影，尋找真相與自我認知。" },
-  { name: "太陽", meaning: "快樂、成功、正能量。運勢充滿活力，療癒憂慮與疲憊，帶來光明與喜悅。" },
-  { name: "審判", meaning: "覺醒、反思、新機會。運勢促使自我覺察，療癒過去遺憾，迎接成長與更新。" },
-  { name: "世界", meaning: "完成、圓滿、新階段。運勢象徵圓滿，療癒旅程終點，開啟全新的人生篇章。" }
-];
+      { name: "愚者", meaning: "新的開始、自由、冒險。你的運勢充滿新機會，療癒過去的恐懼，勇敢邁出第一步。" },
+      { name: "魔術師", meaning: "創造力、掌控力、開始行動。運勢強勁，適合展現才能，療癒心靈阻礙，掌握命運。" },
+      { name: "女祭司", meaning: "直覺、秘密、內在智慧。運勢提醒你傾聽內心聲音，療癒潛意識的迷霧，找到真實自我。" },
+      { name: "皇后", meaning: "豐饒、愛、照顧他人。運勢佳，適合滋養關係與自我，療癒心靈創傷，帶來溫暖與豐盛。" },
+      { name: "皇帝", meaning: "權威、穩定、結構。運勢穩健，適合建立基礎，療癒混亂與不安，帶來安全感與掌控力。" },
+      { name: "教皇", meaning: "傳統、精神指引、教育。運勢正向，尋求智慧與支持，療癒靈性困惑，獲得心靈啟發。" },
+      { name: "戀人", meaning: "關係、選擇、愛與價值觀。運勢聚焦人際，療癒心結與猶豫，帶來真愛與和諧。" },
+      { name: "戰車", meaning: "意志力、勝利、方向明確。運勢強勢，克服阻礙，療癒自我懷疑，勇往直前，達成目標。" },
+      { name: "力量", meaning: "勇氣、內在力量、堅定。運勢支持自信，療癒內心恐懼，展現無畏與堅強精神。" },
+      { name: "隱士", meaning: "尋找真理、孤獨、內省。運勢適合反思與沉澱，療癒心靈疲憊，找到內在平靜與智慧。" },
+      { name: "命運之輪", meaning: "轉變、機運、循環。運勢多變，療癒過去的傷痛，接受生命週期，迎接新契機。" },
+      { name: "正義", meaning: "公平、因果、真相。運勢強調平衡，療癒不公與糾結，促進誠實與正義的力量。" },
+      { name: "倒吊人", meaning: "改變觀點、犧牲、等待。運勢提醒耐心與轉念，療癒固執與焦慮，帶來新視角與成長。" },
+      { name: "死神", meaning: "結束與重生、蛻變。運勢象徵轉化，療癒過去的結束，迎接蛻變與新生命。" },
+      { name: "節制", meaning: "平衡、調和、耐心。運勢適合整合與療癒，促進身心靈和諧與穩定。" },
+      { name: "惡魔", meaning: "束縛、誘惑、成癮。運勢提醒自我覺察，療癒執著與限制，重獲自由與解脫。" },
+      { name: "高塔", meaning: "突變、震撼、重建。運勢充滿挑戰，療癒崩解的痛苦，促使重生與全新開始。" },
+      { name: "星星", meaning: "希望、療癒、靈感。運勢帶來光明與鼓舞，療癒心靈創傷，激發無限可能。" },
+      { name: "月亮", meaning: "迷惘、潛意識、幻想。運勢提醒正視恐懼，療癒內心陰影，尋找真相與自我認知。" },
+      { name: "太陽", meaning: "快樂、成功、正能量。運勢充滿活力，療癒憂慮與疲憊，帶來光明與喜悅。" },
+      { name: "審判", meaning: "覺醒、反思、新機會。運勢促使自我覺察，療癒過去遺憾，迎接成長與更新。" },
+      { name: "世界", meaning: "完成、圓滿、新階段。運勢象徵圓滿，療癒旅程終點，開啟全新的人生篇章。" }
+    ];
+
     function drawCard() {
       const card = cards[Math.floor(Math.random() * cards.length)];
+      document.getElementById("three-result").innerHTML = "";
       document.getElementById("result").innerHTML =
-        `<h2>${card.name}</h2><p>${card.meaning}</p>`;
-  }
-  const cards = [ /* 22 張牌資料 */ ];
-
-  function drawCard() {
-    const card = cards[Math.floor(Math.random() * cards.length)];
-    document.getElementById("three-result").innerHTML = "";
-    document.getElementById("result").innerHTML =
-      `<h2>你抽到的牌是：${card.name}</h2><p>${card.meaning}</p>`;
-  }
-
-  function drawThreeCards() {
-    let picked = [];
-    while (picked.length < 3) {
-      const card = cards[Math.floor(Math.random() * cards.length)];
-      if (!picked.includes(card)) {
-        picked.push(card);
-      }
+        `<h2>你抽到的牌是：${card.name}</h2><p>${card.meaning}</p>`;
     }
 
-    document.getElementById("result").innerHTML = "";
+    function drawThreeCards() {
+      let picked = [];
+      while (picked.length < 3) {
+        const card = cards[Math.floor(Math.random() * cards.length)];
+        if (!picked.includes(card)) {
+          picked.push(card);
+        }
+      }
 
-    let html = "<h2>你抽到的三張牌是：</h2>";
-    picked.forEach((card, index) => {
-      html += `<p><strong>第 ${index + 1} 張：${card.name}</strong><br>${card.meaning}</p>`;
-    });
+      document.getElementById("result").innerHTML = "";
 
-    document.getElementById("three-result").innerHTML = html;
-  }
-</script>
+      let html = "<h2>你抽到的三張牌是：</h2>";
+      picked.forEach((card, index) => {
+        html += `<p><strong>第 ${index + 1} 張：${card.name}</strong><br>${card.meaning}</p>`;
+      });
+
+      document.getElementById("three-result").innerHTML = html;
+    }
+  </script>
 </body>
 </html>
