@@ -11,9 +11,9 @@
   </style>
 </head>
 <body>
-  <h1>🔮點我抽一張塔羅牌</h1>
-  <button onclick="drawCard()">抽牌！</button>
-  <div id="result"></div>
+  <h1>🔮 點我抽塔羅牌</h1>
+  <button onclick="drawCard()">抽一張！</button>
+  <button onclick="drawThreeCards()">抽三張！</button>
 
   <script>
     const cards = [
@@ -46,5 +46,34 @@
         `<h2>${card.name}</h2><p>${card.meaning}</p>`;
     }
   </script>
+  <script>
+  const cards = [ /* 22 張牌資料 */ ];
+
+  function drawCard() {
+    const card = cards[Math.floor(Math.random() * cards.length)];
+    document.getElementById("three-result").innerHTML = "";
+    document.getElementById("result").innerHTML =
+      `<h2>你抽到的牌是：${card.name}</h2><p>${card.meaning}</p>`;
+  }
+
+  function drawThreeCards() {
+    let picked = [];
+    while (picked.length < 3) {
+      const card = cards[Math.floor(Math.random() * cards.length)];
+      if (!picked.includes(card)) {
+        picked.push(card);
+      }
+    }
+
+    document.getElementById("result").innerHTML = "";
+
+    let html = "<h2>你抽到的三張牌是：</h2>";
+    picked.forEach((card, index) => {
+      html += `<p><strong>第 ${index + 1} 張：${card.name}</strong><br>${card.meaning}</p>`;
+    });
+
+    document.getElementById("three-result").innerHTML = html;
+  }
+</script>
 </body>
 </html>
