@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>塔羅抽牌測驗</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background-color: #f0e6f6; }
+    button { font-size: 1.2em; padding: 10px 20px; margin-top: 20px; }
+    #result { margin-top: 30px; font-size: 1.3em; }
+  </style>
+</head>
+<body>
+  <h1>🔮 點我抽一張塔羅牌</h1>
+  <button onclick="drawCard()">抽牌！</button>
+  <div id="result"></div>
+
+  <script>
+    const cards = [
+      { name: "愚者", meaning: "新的開始、自由、冒險。" },
+      { name: "魔術師", meaning: "創造力、掌控力、開始行動。" },
+      { name: "女祭司", meaning: "直覺、秘密、內在智慧。" },
+      { name: "皇后", meaning: "豐饒、愛、照顧他人。" },
+      { name: "皇帝", meaning: "權威、穩定、結構。" },
+      { name: "教皇", meaning: "傳統、精神指引、教育。" },
+      { name: "戀人", meaning: "關係、選擇、愛與價值觀。" },
+      { name: "戰車", meaning: "意志力、勝利、方向明確。" },
+      { name: "力量", meaning: "勇氣、內在力量、堅定。" },
+      { name: "隱士", meaning: "尋找真理、孤獨、內省。" },
+      { name: "命運之輪", meaning: "轉變、機運、循環。" },
+      { name: "正義", meaning: "公平、因果、真相。" },
+      { name: "倒吊人", meaning: "改變觀點、犧牲、等待。" },
+      { name: "死神", meaning: "結束與重生、蛻變。" },
+      { name: "節制", meaning: "平衡、調和、耐心。" },
+      { name: "惡魔", meaning: "束縛、誘惑、成癮。" },
+      { name: "高塔", meaning: "突變、震撼、重建。" },
+      { name: "星星", meaning: "希望、療癒、靈感。" },
+      { name: "月亮", meaning: "迷惘、潛意識、幻想。" },
+      { name: "太陽", meaning: "快樂、成功、正能量。" },
+      { name: "審判", meaning: "覺醒、反思、新機會。" },
+      { name: "世界", meaning: "完成、圓滿、新階段。" }
+    ];
+
+    function drawCard() {
+      const card = cards[Math.floor(Math.random() * cards.length)];
+      document.getElementById("result").innerHTML =
+        `<h2>${card.name}</h2><p>${card.meaning}</p>`;
+    }
+  </script>
+</body>
+</html>
